@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Upgrade Test">
+	<test name="Test Offer">
+		<classes>
+			<class name="upgradetest.UpgradeUITest" />
+			<class name="upgradetest.UpgradeAPITests" />
+		</classes>
+	</test>
+</suite>
