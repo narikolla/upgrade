@@ -42,17 +42,16 @@ paths:
               - email
               - mobile
           examples:
-            1111:
+            user1:
               id: 1111
               name: Narendra Kolla
               email: nari.kolla@gmail.com
               mobile: 1111111111
-            2222:
+            user2:
               id: 2222
               name: John Deo
               email: John.Doe@gmail.com
               mobile: 22222222222
-
         '400':
           description: The error is returned when there is an issue with the arguments of the request.
           schema:
