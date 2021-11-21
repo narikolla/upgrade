@@ -1,199 +1,198 @@
-swagger: '3.0'
+---
+openapi: 3.1.0
 info:
-  title: Stop light Demo
+  title: users
   version: '1.0'
-  description: This gateway connects to various serveless services developed by ECE-EE-Galileo
-  contact:
-    email: ece.ee.services.galileo@autodesk.com
-    name: ECE EE Services Galileo
-    url: 'https://wiki.autodesk.com/x/_HGvKQ'
-contact:
-  name: Stoplight demo
-  email: nari.kolla@gmail.com
+servers:
+  - url: http://localhost:3000
 paths:
-  '/users/{usedId}':
+  "/users/{userId}":
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
     get:
+      summary: Get User Info by User ID
+      tags: []
       responses:
         '200':
-          description: Success Response when the information is retrieved successfully from ABN
-          headers:
-            Access-Control-Allow-Headers:
-              type: string
-            Access-Control-Allow-Methods:
-              type: string
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: boolean
-          schema:
-            type: object
-            properties:
-              id:
-                type: number
-              name:
-                type: string
-              email:
-                type: string
-              mobile:
-                type: number
-            required:
-              - id
-              - name
-              - email
-              - mobile
-          examples:
-            user1:
-              id: 1111
-              name: Narendra Kolla
-              email: nari.kolla@gmail.com
-              mobile: 1111111111
-            user2:
-              id: 2222
-              name: John Deo
-              email: John.Doe@gmail.com
-              mobile: 22222222222
-        '400':
-          description: The error is returned when there is an issue with the arguments of the request.
-          schema:
-            type: object
-            properties:
-              code:
-                type: number
-              message:
-                type: string
-            required:
-              - code
-              - message
-          examples:
-            BadRequest:
-              code: 400
-              message: Bad Request
-        '401':
-          description: UnAuthorized to user Service.
-          headers:
-            Access-Control-Allow-Headers:
-              type: string
-            Access-Control-Allow-Methods:
-              type: string
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: boolean
+          description: User Found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/User"
+              examples:
+                Get User Alice Smith:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
         '404':
-          description: The error is returned when there no data found .
-          schema:
-            type: object
-            properties:
-              code:
-                type: number
-              message:
-                type: string
-            required:
-              - code
-              - message
-        '500':
-          description: The error is returned when there is an issue with the processing of the request.
-          schema:
-            type: object
-            properties:
-              code:
-                type: number
-              message:
-                type: string
-            required:
-              - code
-              - message
-
-      x-amazon-apigateway-integration:
-        uri: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:mss-australian-business-numbers-lookup/invocations'
-        requestParameters:
-          integration.request.path.taxNumber: method.request.path.taxNumber
-          integration.request.querystring.mockDependencies: method.request.querystring.mockDependencies
-        responses:
-          '200':
-            statusCode: '200'
-            responseParameters:
-              method.response.header.Access-Control-Allow-Headers: '''Content-Type,jwToken,X-Amz-Date,Authorization,X-Api-Key'''
-              method.response.header.Access-Control-Allow-Methods: '''GET,OPTIONS,POST'''
-              method.response.header.Access-Control-Allow-Origin: '''*'''
-              method.response.header.Access-Control-Allow-Credentials: false
-          '401':
-            statusCode: '401'
-            responseParameters:
-              method.response.header.Access-Control-Allow-Headers: '''Content-Type,jwToken,X-Amz-Date,Authorization,X-Api-Key'''
-              method.response.header.Access-Control-Allow-Methods: '''GET,OPTIONS,POST'''
-              method.response.header.Access-Control-Allow-Origin: '''*'''
-              method.response.header.Access-Control-Allow-Credentials: false
-        passthroughBehavior: when_no_match
-        httpMethod: POST
-        type: aws_proxy
-      summary: Validate phone numbers from ABN
-      operationId: abn
-      produces:
-        - application/json
-      consumes:
-        - application/json
-      tags:
-        - abn
-      parameters:
-        - type: string
-          name: taxNumber
-          in: path
-          required: true
-          description: ABN Tax Number
-        - type: boolean
-          name: mockDependencies
-          in: query
-      x-internal: false
-      description: ''
-    options:
-      summary: CORS support
-      description: |
-        Enable CORS by returning correct headers
-      tags:
-        - CORS
+          description: User Not Found
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+    patch:
+      summary: Update User Information
+      operationId: patch-users-userId
       responses:
         '200':
-          description: Default response for CORS method
-          headers:
-            Access-Control-Allow-Origin:
-              type: string
-            Access-Control-Allow-Methods:
-              type: string
-            Access-Control-Allow-Headers:
-              type: string
-            Access-Control-Allow-Credentials:
-              type: string
-      security:
-        - NONE: []
-      x-amazon-apigateway-integration:
-        type: mock
-        requestTemplates:
-          application/json: |
-            {
-              "statusCode" : 200
-            }
-        responses:
-          default:
-            statusCode: '200'
-            responseParameters:
-              method.response.header.Access-Control-Allow-Headers: '''Content-Type,jwToken,Authorization,X-Api-Key'''
-              method.response.header.Access-Control-Allow-Methods: '''GET,OPTIONS,POST'''
-              method.response.header.Access-Control-Allow-Origin: '''*'''
-              method.response.header.Access-Control-Allow-Credentials: false
-            responseTemplates:
-              application/json: |
-                {}
-        passthroughBehavior: when_no_match
-        httpMethod: OPTIONS
-
-schemes:
-  - https
-  - http
-consumes:
-  - application/json
-produces:
-  - application/json
-tags:
-  - name: users
-
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/User"
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    firstName: Rebecca
+                    lastName: Baker
+                    email: rebecca@gmail.com
+                    dateOfBirth: '1985-10-02'
+                    emailVerified: false
+                    createDate: '2019-08-24'
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                  description: If a new email is given, the user's email verified
+                    property will be set to false.
+                dateOfBirth:
+                  type: string
+            examples:
+              Update First Name:
+                value:
+                  firstName: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+              Update Last Name & Date of Birth:
+                value:
+                  lastName: Baker
+                  dateOfBirth: '1985-10-02'
+        description: Patch user properties to update.
+  "/user":
+    post:
+      summary: Create New User
+      operationId: post-user
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/User"
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+                example-1:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                dateOfBirth:
+                  type: string
+                  format: date
+              required:
+                - firstName
+                - lastName
+                - email
+                - dateOfBirth
+            examples:
+              Create User Bob Fellow:
+                value:
+                  firstName: Bob
+                  lastName: Fellow
+                  email: bob.fellow@gmail.com
+                  dateOfBirth: '1996-08-24'
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      examples:
+        - id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1997-10-31'
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified
