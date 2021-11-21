@@ -159,6 +159,17 @@
                       "emailVerified": false,
                       "createDate": "2020-11-18"
                     }
+                  },
+                  "example-1": {
+                    "value": {
+                      "id": 142,
+                      "firstName": "Alice",
+                      "lastName": "Smith",
+                      "email": "alice.smith@gmail.com",
+                      "dateOfBirth": "1997-10-31",
+                      "emailVerified": true,
+                      "signUpDate": "2019-08-24"
+                    }
                   }
                 }
               }
