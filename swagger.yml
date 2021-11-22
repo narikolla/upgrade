@@ -1,12 +1,11 @@
----
 openapi: 3.1.0
 info:
   title: users
   version: '1.0'
 servers:
-  - url: http://localhost:3000
+  - url: 'http://localhost:3000'
 paths:
-  "/users/{userId}":
+  '/users/{userId}':
     parameters:
       - schema:
           type: integer
@@ -23,9 +22,18 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
               examples:
                 Get User Alice Smith:
+                  value:
+                    id: 142
+                    firstName: Alice
+                    lastName: Smith
+                    email: alice.smith@gmail.com
+                    dateOfBirth: '1997-10-31'
+                    emailVerified: true
+                    signUpDate: '2019-08-24'
+                example-1:
                   value:
                     id: 142
                     firstName: Alice
@@ -47,7 +55,7 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
               examples:
                 Updated User Rebecca Baker:
                   value:
@@ -75,8 +83,7 @@ paths:
                   type: string
                 email:
                   type: string
-                  description: If a new email is given, the user's email verified
-                    property will be set to false.
+                  description: 'If a new email is given, the user''s email verified property will be set to false.'
                 dateOfBirth:
                   type: string
             examples:
@@ -91,7 +98,7 @@ paths:
                   lastName: Baker
                   dateOfBirth: '1985-10-02'
         description: Patch user properties to update.
-  "/user":
+  /user:
     post:
       summary: Create New User
       operationId: post-user
@@ -101,7 +108,7 @@ paths:
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/User"
+                $ref: '#/components/schemas/User'
               examples:
                 New User Bob Fellow:
                   value:
