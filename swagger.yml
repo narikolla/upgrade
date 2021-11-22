@@ -44,6 +44,18 @@ paths:
                     signUpDate: '2020-08-24'
         '404':
           description: User Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value: {}
+        '500':
+          description: Internal Server Error
+        '501':
+          description: Not Implemented
       operationId: get-users-userId
       description: Retrieve the information of the user with the matching user ID.
     patch:
