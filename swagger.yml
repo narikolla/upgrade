@@ -33,7 +33,7 @@ paths:
                     dateOfBirth: '1997-10-31'
                     emailVerified: true
                     signUpDate: '2019-08-24'
-                example-1:
+                JohnDoe:
                   value:
                     id: 143
                     firstName: John
