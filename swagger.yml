@@ -50,10 +50,31 @@ paths:
                 type: object
                 properties: {}
               examples:
-                example-1:
-                  value: {}
+                unauthorized:
+                  value:
+                    message: Unauthorized access
         '500':
           description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    code: 500
+                    message: Error finding users
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value: |-
+                    { 
+                     
+                    }
         '501':
           description: Not Implemented
       operationId: get-users-userId
