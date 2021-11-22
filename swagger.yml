@@ -61,7 +61,7 @@ paths:
                 type: object
                 properties: {}
               examples:
-                example-1:
+                internal-error:
                   value:
                     code: 500
                     message: Error finding users
