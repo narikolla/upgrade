@@ -27,7 +27,7 @@ paths:
                 AliceSmith:
                   value:
                     id: 142
-                    firstName: Alice
+                    firstName: Clara
                     lastName: Smith
                     email: alice.smith@gmail.com
                     dateOfBirth: '1997-10-31'
