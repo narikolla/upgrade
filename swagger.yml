@@ -24,7 +24,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
               examples:
-                Get User Alice Smith:
+                AliceSmith:
                   value:
                     id: 142
                     firstName: Alice
@@ -35,13 +35,13 @@ paths:
                     signUpDate: '2019-08-24'
                 example-1:
                   value:
-                    id: 142
-                    firstName: Alice
-                    lastName: Smith
-                    email: alice.smith@gmail.com
-                    dateOfBirth: '1997-10-31'
+                    id: 143
+                    firstName: John
+                    lastName: Doe
+                    email: John.Doe@gmail.com
+                    dateOfBirth: 19987-10-31
                     emailVerified: true
-                    signUpDate: '2019-08-24'
+                    signUpDate: '2020-08-24'
         '404':
           description: User Not Found
       operationId: get-users-userId
